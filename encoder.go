@@ -73,6 +73,7 @@ type SyslogEncoderConfig struct {
 	Hostname string          `json:"hostname" yaml:"hostname"`
 	PID      int             `json:"pid" yaml:"pid"`
 	App      string          `json:"app" yaml:"app"`
+	Encoding string          `json:"encoding" yaml:"encoding"`
 }
 
 type syslogEncoder struct {
@@ -125,10 +126,15 @@ func NewSyslogEncoder(cfg SyslogEncoderConfig) zapcore.Encoder {
 	}
 
 	cfg.EncoderConfig.LineEnding = "\n"
-	je := zapcore.NewJSONEncoder(cfg.EncoderConfig).(jsonEncoder)
+  var ge jsonEncoder
+  if cfg.Encoding == "console" {
+    ge = zapcore.NewConsoleEncoder(cfg.EncoderConfig).(jsonEncoder)
+  } else {
+	  ge = zapcore.NewJSONEncoder(cfg.EncoderConfig).(jsonEncoder)
+  }
 	return &syslogEncoder{
 		SyslogEncoderConfig: &cfg,
-		je:                  je,
+		je:                  ge,
 	}
 }
 
