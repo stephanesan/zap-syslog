@@ -233,6 +233,8 @@ func (enc *syslogEncoder) EncodeEntry(ent zapcore.Entry, fields []zapcore.Field)
 		p = syslog.LOG_INFO
 	case zapcore.DebugLevel:
 		p = syslog.LOG_DEBUG
+        default:
+                p = syslog.LOG_NOTICE
 	}
 	pr := int64((enc.Facility & facilityMask) | (p & severityMask))
 
