@@ -43,7 +43,7 @@ const (
 	LOG_AUTHPRIV
 	LOG_FTP
 	_ // unused
-	_ // unused
+	LOG_AUDIT
 	_ // unused
 	_ // unused
 	LOG_LOCAL0
@@ -70,6 +70,7 @@ var (
 		"CRON":     LOG_CRON,
 		"AUTHPRIV": LOG_AUTHPRIV,
 		"FTP":      LOG_FTP,
+    "AUDIT":    LOG_AUDIT,
 		"LOCAL0":   LOG_LOCAL0,
 		"LOCAL1":   LOG_LOCAL1,
 		"LOCAL2":   LOG_LOCAL2,
